@@ -20,7 +20,7 @@ export const loader = async ({ request }) => {
   const title = t('headTitle')
   const lngInQuery = (new URL(request.url)).searchParams.get('lng')
   const options = {}
-  if (lngInQuery) { // on language change vie lng search param, save selection to cookie
+  if (lngInQuery) { // on language change via lng search param, save selection to cookie
     options.headers = {
       'Set-Cookie': await createCookie('locale').serialize(locale)
     }
