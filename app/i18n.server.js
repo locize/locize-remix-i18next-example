@@ -1,6 +1,5 @@
 import { RemixI18Next, FileSystemBackend } from 'remix-i18next'
 import i18nextOptions from './i18nextOptions'
-import { createCookie } from '@remix-run/server-runtime'
 
 // In theory we could use the i18next-locize-backend, but this would probably
 // lead to an elevated amount of downloads: https://github.com/locize/i18next-locize-backend#important-advice-for-serverless-environments---aws-lambda-google-cloud-functions-azure-functions-etc
@@ -28,5 +27,14 @@ const backend = new FileSystemBackend('./public/locales')
 export default new RemixI18Next(backend, {
   fallbackLng: i18nextOptions.fallbackLng, // here configure your default (fallback) language
   supportedLanguages: i18nextOptions.supportedLngs, // here configure your supported languages
-  cookie: createCookie('locale') // check also for cookie
+  // cookie: {
+  //   parse: async (cookieString) => {
+  //     const cookie = Object.fromEntries(
+  //       cookieString
+  //         .split(';')
+  //         .map((cookie) => cookie.trim().split('=')) ?? []
+  //     );
+  //     return cookie.i18next;
+  //   }
+  // }
 })

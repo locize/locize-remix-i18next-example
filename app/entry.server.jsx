@@ -14,7 +14,10 @@ export default async function handleRequest(
   // Here you also need to initialize i18next using initReactI18next, you should
   // use the same configuration as in your client side.
   if (!i18next.isInitialized) // prevent i18next to be initialized multiple times
-    await i18next.use(initReactI18next).init(i18nextOptions)
+    await i18next.use(initReactI18next).init({
+      ...i18nextOptions,
+      resources: {} // prevents init warning
+    })
 
   // Then you can render your app wrapped in the RemixI18NextProvider as in the
   // entry.client file

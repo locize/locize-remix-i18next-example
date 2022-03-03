@@ -11,7 +11,7 @@ export const loader = async ({ request }) => {
 
 export default function Index() {
   const { t, ready } = useTranslation('second')
-  if (!ready) return <Loading /> // i18next may not be ready when changing route with <Link>
+  if (!ready) return <Loading />
 
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>

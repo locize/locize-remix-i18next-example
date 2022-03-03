@@ -6,8 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
   json,
-  useLoaderData,
-  createCookie
+  useLoaderData
 } from 'remix'
 import { useRemixI18Next } from 'remix-i18next'
 import remixI18n from './i18n.server'
@@ -18,14 +17,7 @@ export const loader = async ({ request }) => {
   const locale = await remixI18n.getLocale(request)
   const t = await remixI18n.getFixedT(request, 'common')
   const title = t('headTitle')
-  const lngInQuery = (new URL(request.url)).searchParams.get('lng')
-  const options = {}
-  if (lngInQuery) { // on language change via lng search param, save selection to cookie
-    options.headers = {
-      'Set-Cookie': await createCookie('locale').serialize(locale)
-    }
-  }
-  return json({ locale, title }, options)
+  return json({ locale, title })
 }
 
 export function meta({ data }) {
@@ -36,11 +28,12 @@ export const links = () => {
   return [{ rel: 'stylesheet', href: styles }]
 }
 
+const isBrowser = typeof window === 'object' && typeof document === 'object'
+
 export default function App() {
   const { i18n } = useTranslation()
   const { locale } = useLoaderData()
-  useRemixI18Next(locale)
-
+  if (!isBrowser) useRemixI18Next(locale) // only use remix-i18next on server side
   return (
     <html lang={i18n.language}>
       <head>

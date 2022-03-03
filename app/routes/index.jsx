@@ -39,9 +39,9 @@ function MyComponent({ t }) {
 }
 
 export default function Index() {
-  const { lngs, locale } = useLoaderData()
+  const { lngs } = useLoaderData()
   const { t, ready, i18n } = useTranslation('index')
-  if (!ready) return <Loading /> // i18next may not be ready when changing route with <Link>
+  if (!ready) return <Loading />
 
   return (
     <div className="App">
@@ -52,18 +52,19 @@ export default function Index() {
       <div className="App-intro">
         <div>
           {Object.keys(lngs).map((lng) => (
-            <Link
+            <button
               key={lng}
-              style={{ marginRight: 5, fontWeight: locale === lng ? 'bold' : 'normal' }}
-              to={`/?lng=${lng}`}
+              style={{ marginRight: 5, fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }}
+              onClick={() => i18n.changeLanguage(lng)}
             >
               {lngs[lng].nativeName}
-            </Link>
+            </button>
           ))}
         </div>
         <MyComponent t={t} />
       </div>
       <div>{t('description.part2')}</div>
+      <div>{t('new.key', 'this will be added automatically')}</div>
       <hr />
       <div>
         <Link to="/second">{t('goto.second')}</Link>

@@ -4,6 +4,5 @@ export default {
   supportedLngs: ['en', 'de'],
   defaultNS: 'common',
   ns: [],
-  react: { useSuspense: false },
-  resources: {} // prevents init warning
+  react: { useSuspense: false }
 }
