@@ -20,5 +20,5 @@ See [downloadLocales script in package.json](https://github.com/locize/locize-re
 We're doing so to prevent an elevated amount of downloads. [Read this](https://github.com/locize/i18next-locize-backend#important-advice-for-serverless-environments---aws-lambda-google-cloud-functions-azure-functions-etc) for more information about this topic about serverless environments.
 
 Before "deploying" your app, you can run the [downloadLocales script](https://github.com/locize/locize-remix-i18next-example/blob/main/package.json#L34) (or similar), which will use the [cli](https://github.com/locize/locize-cli) to download the translations from locize into the appropriate folder remix-i18next is looking in to (i.e. ./public/locales).
-This way the translations are bundled in your app and on server side you will not generate any downloads to the [locize CDN](https://docs.locize.com/whats-inside/cdn-content-delivery-network) during runtime.
+This way the translations are bundled in your app and on server side you will not generate any downloads to the [locize CDN](https://docs.locize.com/whats-inside/cdn-content-delivery-network) during runtime, but just on client side.
 
