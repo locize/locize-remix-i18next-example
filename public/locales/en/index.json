@@ -3,8 +3,11 @@
     "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
     "part2": "Switch language between english and german using links above."
   },
-  "title": "Welcome to Remix",
   "goto": {
     "second": "navigate to second page"
-  }
+  },
+  "new": {
+    "key": "this will be added automatically"
+  },
+  "title": "Welcome to Remix"
 }
