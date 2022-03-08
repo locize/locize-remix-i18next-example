@@ -4,7 +4,7 @@
 
 This is a simple example of how to use [remix-i18next](https://github.com/sergiodxa/remix-i18next) with [Remix](https://remix.run) and [locize](https://locize.com) to get translations up and running quickly and easily.
 
-This is the example app used in [this blog post](https://www.locize.com/blog/remix-i18n/).
+This is the example app used in [this blog post](https://www.locize.com/blog/remix-i18next/).
 
 ## For more info...
 
