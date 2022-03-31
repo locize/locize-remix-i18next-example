@@ -8,7 +8,7 @@ import {
   json,
   useLoaderData
 } from 'remix'
-import { useRemixI18Next } from 'remix-i18next'
+import { useSetupTranslations } from 'remix-i18next'
 import remixI18n from './i18n.server'
 import { useTranslation } from 'react-i18next'
 import styles from './styles/index.css'
@@ -33,7 +33,7 @@ const isBrowser = typeof window === 'object' && typeof document === 'object'
 export default function App() {
   const { i18n } = useTranslation()
   const { locale } = useLoaderData()
-  if (!isBrowser) useRemixI18Next(locale) // only use remix-i18next on server side
+  if (!isBrowser) useSetupTranslations(locale) // only use remix-i18next on server side
   return (
     <html lang={i18n.language}>
       <head>

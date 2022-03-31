@@ -52,7 +52,7 @@ if (!i18next.isInitialized) { // prevent i18next to be initialized multiple time
       saveMissing: !isProduction // you should not use saveMissing in production
     })
     .then(() => {
-      // then hydrate your app wrapped in the RemixI18NextProvider
+      // then hydrate your app
       return hydrate(
         <RemixBrowser />,
         document

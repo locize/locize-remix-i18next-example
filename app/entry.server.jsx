@@ -1,8 +1,7 @@
 import { renderToString } from 'react-dom/server'
 import { RemixServer } from 'remix'
 import i18next from 'i18next'
-import { RemixI18NextProvider } from 'remix-i18next'
-import { initReactI18next } from 'react-i18next'
+import { I18nextProvider, initReactI18next } from 'react-i18next'
 import i18nextOptions from './i18nextOptions'
 
 export default async function handleRequest(
@@ -19,12 +18,12 @@ export default async function handleRequest(
       resources: {} // prevents init warning
     })
 
-  // Then you can render your app wrapped in the RemixI18NextProvider as in the
+  // Then you can render your app wrapped in the I18nextProvider as in the
   // entry.client file
   let markup = renderToString(
-    <RemixI18NextProvider i18n={i18next}>
+    <I18nextProvider i18n={i18next}>
       <RemixServer context={remixContext} url={request.url} />
-    </RemixI18NextProvider>
+    </I18nextProvider>
   )
 
   responseHeaders.set('Content-Type', 'text/html')
