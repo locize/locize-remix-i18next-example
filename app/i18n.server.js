@@ -1,6 +1,6 @@
 import { RemixI18Next, FileSystemBackend } from 'remix-i18next'
 import i18nextOptions from './i18nextOptions'
-import { createCookie } from '@remix-run/server-runtime'
+import { createCookie } from 'remix'
 
 // In theory we could use the i18next-locize-backend, but this would probably
 // lead to an elevated amount of downloads: https://github.com/locize/i18next-locize-backend#important-advice-for-serverless-environments---aws-lambda-google-cloud-functions-azure-functions-etc

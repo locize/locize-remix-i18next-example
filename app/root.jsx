@@ -9,7 +9,7 @@ import {
   useLoaderData,
   createCookie
 } from 'remix'
-import { useRemixI18Next } from 'remix-i18next'
+import { useSetupTranslations } from 'remix-i18next'
 import remixI18n from './i18n.server'
 import { useTranslation } from 'react-i18next'
 import styles from './styles/index.css'
@@ -39,7 +39,7 @@ export const links = () => {
 export default function App() {
   const { i18n } = useTranslation()
   const { locale } = useLoaderData()
-  useRemixI18Next(locale)
+  useSetupTranslations(locale)
 
   return (
     <html lang={i18n.language}>
