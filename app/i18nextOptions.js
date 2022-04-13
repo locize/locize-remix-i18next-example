@@ -3,6 +3,5 @@ export default {
   fallbackLng: 'en',
   supportedLngs: ['en', 'de'],
   defaultNS: 'common',
-  ns: [],
   react: { useSuspense: false }
 }

@@ -1,8 +1,9 @@
 import { hydrate } from 'react-dom'
-import { RemixBrowser } from 'remix'
+import { RemixBrowser } from '@remix-run/react'
 import i18next from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import { I18nextProvider, initReactI18next } from 'react-i18next'
+import { getInitialNamespaces } from 'remix-i18next'
 import Backend from 'i18next-locize-backend'
 import LastUsed from 'locize-lastused'
 import { locizePlugin } from 'locize'
@@ -43,9 +44,17 @@ if (!i18next.isInitialized) { // prevent i18next to be initialized multiple time
     // for all options read: https://www.i18next.com/overview/configuration-options
     .init({
       ...i18nextOptions,
+      // This function detects the namespaces your routes rendered while SSR use
+      // and pass them here to load the translations
+      ns: getInitialNamespaces(),
       detection: {
-        caches: ['cookie'],
-        lookupCookie: 'i18next'
+        // Here only enable htmlTag detection, we'll detect the language only
+        // server-side with remix-i18next, by using the `<html lang>` attribute
+        // we can communicate to the client the language detected server-side
+        order: ['htmlTag'],
+        // Because we only use htmlTag, there's no reason to cache the language
+        // on the browser, so we disable it
+        caches: [],
       },
       backend: locizeOptions,
       locizeLastUsed: locizeOptions,

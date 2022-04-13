@@ -5,10 +5,10 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  json,
   useLoaderData
-} from 'remix'
-import { useSetupTranslations } from 'remix-i18next'
+} from '@remix-run/react'
+import { json } from '@remix-run/node'
+import { useChangeLanguage } from 'remix-i18next'
 import remixI18n from './i18n.server'
 import { useTranslation } from 'react-i18next'
 import styles from './styles/index.css'
@@ -20,6 +20,12 @@ export const loader = async ({ request }) => {
   return json({ locale, title })
 }
 
+export const handle = {
+  // In the handle export, we could add a i18n key with namespaces our route
+  // will need to load. This key can be a single string or an array of strings.
+  i18n: ['common']
+};
+
 export function meta({ data }) {
   return { title: data.title }
 }
@@ -28,14 +34,18 @@ export const links = () => {
   return [{ rel: 'stylesheet', href: styles }]
 }
 
-const isBrowser = typeof window === 'object' && typeof document === 'object'
-
 export default function App() {
   const { i18n } = useTranslation()
   const { locale } = useLoaderData()
-  if (!isBrowser) useSetupTranslations(locale) // only use remix-i18next on server side
+  
+  // This hook will change the i18n instance language to the current locale
+  // detected by the loader, this way, when we do something to change the
+  // language, this locale will change and i18next will load the correct
+  // translation files
+  useChangeLanguage(locale)
+
   return (
-    <html lang={i18n.language}>
+    <html lang={i18n.resolvedLanguage}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />

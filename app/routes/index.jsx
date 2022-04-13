@@ -1,4 +1,5 @@
-import { json, Link, useLoaderData } from 'remix'
+import { Link, useLoaderData } from '@remix-run/react'
+import { json } from '@remix-run/node'
 import remixI18n from '../i18n.server'
 import { useTranslation, withTranslation, Trans } from 'react-i18next'
 import { Component } from 'react'
@@ -8,8 +9,6 @@ import Loading from '../components/Loading'
 
 export const loader = async ({ request }) => {
   return json({
-    i18n: await remixI18n.getTranslations(request, ['index']),
-    locale: await remixI18n.getLocale(request),
     lngs: {
       en: { nativeName: 'English' },
       de: { nativeName: 'Deutsch' }
@@ -38,6 +37,12 @@ function MyComponent({ t }) {
   )
 }
 
+export const handle = {
+  // In the handle export, we could add a i18n key with namespaces our route
+  // will need to load. This key can be a single string or an array of strings.
+  i18n: ['index']
+}
+
 export default function Index() {
   const { lngs } = useLoaderData()
   const { t, ready, i18n } = useTranslation('index')
@@ -52,13 +57,13 @@ export default function Index() {
       <div className="App-intro">
         <div>
           {Object.keys(lngs).map((lng) => (
-            <button
+            <Link
               key={lng}
               style={{ marginRight: 5, fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }}
-              onClick={() => i18n.changeLanguage(lng)}
+              to={`/?lng=${lng}`}
             >
               {lngs[lng].nativeName}
-            </button>
+            </Link>
           ))}
         </div>
         <MyComponent t={t} />
