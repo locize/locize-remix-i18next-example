@@ -13,11 +13,11 @@ You may have arrived here from the [Remix](https://github.com/remix-run/remix) r
 
 ## How to integrate locize
 
-locize normally offers a special [i18next backend plugin](https://github.com/locize/i18next-locize-backend) to integrate with i18next setups.
-Since remix-i18next does not use the backend capability of i18next, but uses a custom backend logic, we are not going to use the i18next-locize-backend, like described [in this comment](https://github.com/locize/locize-remix-i18next-example/blob/main/app/i18n.server.js#L6).
+Since Remix apps are usually deployed on serverless environments, we will use the [i18next-locize-backend plugin](https://github.com/locize/i18next-locize-backend) only on client side.
 
-Instead we'll "bundle" the translations first.
-See [downloadLocales script in package.json](https://github.com/locize/locize-remix-i18next-example/blob/main/package.json#L30).
+Instead on server side we'll "bundle" the translations first.
+See [downloadLocales script in package.json](https://github.com/locize/locize-remix-i18next-example/blob/main/package.json#L34).
+We're doing so to prevent an elevated amount of downloads. [Read this](https://github.com/locize/i18next-locize-backend#important-advice-for-serverless-environments---aws-lambda-google-cloud-functions-azure-functions-etc) for more information about this topic about serverless environments.
 
-Before "deploying" your app, you can run the [downloadLocales script](https://github.com/locize/locize-remix-i18next-example/blob/main/package.json#L30) (or similar), which will use the [cli](https://github.com/locize/locize-cli) to download the translations from locize into the appropriate folder remix-i18next is looking in to (i.e. ./public/locales).
-This way the translations are bundled in your app and you will not generate any downloads to the [locize CDN](https://docs.locize.com/whats-inside/cdn-content-delivery-network) during runtime.
+Before "deploying" your app, you can run the [downloadLocales script](https://github.com/locize/locize-remix-i18next-example/blob/main/package.json#L34) (or similar), which will use the [cli](https://github.com/locize/locize-cli) to download the translations from locize into the appropriate folder remix-i18next is looking in to (i.e. ./public/locales).
+This way the translations are bundled in your app and on server side you will not generate any downloads to the [locize CDN](https://docs.locize.com/whats-inside/cdn-content-delivery-network) during runtime, but just on client side.

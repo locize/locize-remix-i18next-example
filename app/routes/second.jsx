@@ -1,13 +1,12 @@
-import { json, Link } from 'remix'
-import remixI18n from '../i18n.server'
+import { Link } from '@remix-run/react'
 import { useTranslation } from 'react-i18next'
 import Loading from '../components/Loading'
 
-export const loader = async ({ request }) => {
-  return json({
-    i18n: await remixI18n.getTranslations(request, ['second'])
-  })
-}
+export const handle = {
+  // In the handle export, we could add a i18n key with namespaces our route
+  // will need to load. This key can be a single string or an array of strings.
+  i18n: ['second']
+};
 
 export default function Index() {
   const { t, ready } = useTranslation('second')

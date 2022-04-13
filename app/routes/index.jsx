@@ -1,5 +1,5 @@
-import { json, Link, useLoaderData } from 'remix'
-import remixI18n from '../i18n.server'
+import { Link, useLoaderData } from '@remix-run/react'
+import { json } from '@remix-run/node'
 import { useTranslation, withTranslation, Trans } from 'react-i18next'
 import { Component } from 'react'
 import logo from '../logo.svg'
@@ -8,14 +8,18 @@ import Loading from '../components/Loading'
 
 export const loader = async ({ request }) => {
   return json({
-    i18n: await remixI18n.getTranslations(request, ['index']),
-    locale: await remixI18n.getLocale(request),
     lngs: {
       en: { nativeName: 'English' },
       de: { nativeName: 'Deutsch' }
     }
   })
 }
+
+export const handle = {
+  // In the handle export, we could add a i18n key with namespaces our route
+  // will need to load. This key can be a single string or an array of strings.
+  i18n: ['index']
+};
 
 export const links = () => {
   return [{ rel: 'stylesheet', href: styles }]
@@ -39,7 +43,7 @@ function MyComponent({ t }) {
 }
 
 export default function Index() {
-  const { lngs, locale } = useLoaderData()
+  const { lngs } = useLoaderData()
   const { t, ready, i18n } = useTranslation('index')
   if (!ready) return <Loading /> // i18next may not be ready when changing route with <Link>
 
@@ -54,7 +58,7 @@ export default function Index() {
           {Object.keys(lngs).map((lng) => (
             <Link
               key={lng}
-              style={{ marginRight: 5, fontWeight: locale === lng ? 'bold' : 'normal' }}
+              style={{ marginRight: 5, fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }}
               to={`/?lng=${lng}`}
             >
               {lngs[lng].nativeName}
