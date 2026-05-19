@@ -1,24 +1,23 @@
 import { Link, useLoaderData } from '@remix-run/react'
 import { json } from '@remix-run/node'
-import remixI18n from '../i18n.server'
 import { useTranslation, withTranslation, Trans } from 'react-i18next'
 import { Component } from 'react'
 import logo from '../logo.svg'
-import styles from '../styles/app.css'
-import Loading from '../components/Loading'
+import styles from '../styles/app.css?url'
+import Loading from '../components/Loading.jsx'
 
-export const loader = async ({ request }) => {
+export const loader = async () => {
   return json({
     lngs: {
       en: { nativeName: 'English' },
-      de: { nativeName: 'Deutsch' }
-    }
+      de: { nativeName: 'Deutsch' },
+    },
   })
 }
 
-export const links = () => {
-  return [{ rel: 'stylesheet', href: styles }]
-}
+export const links = () => [{ rel: 'stylesheet', href: styles }]
+
+export const handle = { i18n: ['index'] }
 
 class LegacyWelcomeClass extends Component {
   render() {
@@ -28,19 +27,13 @@ class LegacyWelcomeClass extends Component {
 }
 const Welcome = withTranslation('index')(LegacyWelcomeClass)
 
-// Component using the Trans component
 function MyComponent({ t }) {
   return (
     <Trans t={t} i18nKey="description.part1">
-      To get started, edit <code>src/App.js</code> and save to reload.
+      To get started, edit <code>app/routes/_index.jsx</code> and save to
+      reload.
     </Trans>
   )
-}
-
-export const handle = {
-  // In the handle export, we could add a i18n key with namespaces our route
-  // will need to load. This key can be a single string or an array of strings.
-  i18n: ['index']
 }
 
 export default function Index() {
@@ -59,7 +52,10 @@ export default function Index() {
           {Object.keys(lngs).map((lng) => (
             <Link
               key={lng}
-              style={{ marginRight: 5, fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }}
+              style={{
+                marginRight: 5,
+                fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal',
+              }}
               to={`/?lng=${lng}`}
             >
               {lngs[lng].nativeName}

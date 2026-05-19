@@ -1,50 +1,41 @@
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData
+  useLoaderData,
 } from '@remix-run/react'
 import { json } from '@remix-run/node'
-import { useChangeLanguage } from 'remix-i18next'
-import remixI18n from './i18n.server'
+import { useChangeLanguage } from 'remix-i18next/react'
 import { useTranslation } from 'react-i18next'
-import styles from './styles/index.css'
-import { i18nCookie } from './cookie'
+import remixI18n from './i18n.server.js'
+import { i18nCookie } from './cookie.js'
+import styles from './styles/index.css?url'
 
 export const loader = async ({ request }) => {
   const locale = await remixI18n.getLocale(request)
   const t = await remixI18n.getFixedT(request, 'common')
   const title = t('headTitle')
-  return json({ locale, title }, {
-    headers: {"Set-Cookie": await i18nCookie.serialize(locale)}
-  })
+  return json(
+    { locale, title },
+    { headers: { 'Set-Cookie': await i18nCookie.serialize(locale) } },
+  )
 }
 
-export const handle = {
-  // In the handle export, we could add a i18n key with namespaces our route
-  // will need to load. This key can be a single string or an array of strings.
-  i18n: ['common']
-};
+// Tell remix-i18next which i18next namespaces this route needs.
+export const handle = { i18n: ['common'] }
 
-export function meta({ data }) {
-  return { title: data.title }
-}
+// Remix v2 meta returns an array of meta descriptors (was an object in v1).
+export const meta = ({ data }) => [{ title: data?.title }]
 
-export const links = () => {
-  return [{ rel: 'stylesheet', href: styles }]
-}
+export const links = () => [{ rel: 'stylesheet', href: styles }]
 
 export default function App() {
   const { i18n } = useTranslation()
   const { locale } = useLoaderData()
-  
-  // This hook will change the i18n instance language to the current locale
-  // detected by the loader, this way, when we do something to change the
-  // language, this locale will change and i18next will load the correct
-  // translation files
+
+  // Sync the i18next instance with the locale the server decided.
   useChangeLanguage(locale)
 
   return (
@@ -59,7 +50,6 @@ export default function App() {
         <Outlet />
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   )

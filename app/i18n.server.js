@@ -1,26 +1,24 @@
-import { RemixI18Next } from 'remix-i18next'
+import { RemixI18Next } from 'remix-i18next/server'
 import Backend from 'i18next-fs-backend'
 import { resolve } from 'node:path'
-import i18nextOptions from './i18nextOptions'
-import { i18nCookie } from './cookie'
+import i18nextOptions from './i18nextOptions.js'
+import { i18nCookie } from './cookie.js'
 
 export default new RemixI18Next({
   detection: {
-    // persist language selection in cookie
+    // Persist the language selection in a cookie.
     cookie: i18nCookie,
-    // This is the list of languages your application supports
     supportedLanguages: i18nextOptions.supportedLngs,
-    // This is the language you want to use in case the user language is not
-    // listed above
     fallbackLanguage: i18nextOptions.fallbackLng,
   },
-  // This is the configuration for i18next used when translating messages server
-  // side only
+  // Configuration for the server-side i18next instance.
   i18next: {
-    backend: { loadPath: resolve("./public/locales/{{lng}}/{{ns}}.json") },
+    ...i18nextOptions,
+    backend: {
+      loadPath: resolve('./public/locales/{{lng}}/{{ns}}.json'),
+    },
   },
-  // The backend you want to use to load the translations
-  // Tip: You could pass `resources` to the `i18next` configuration and avoid
-  // a backend here
-  backend: Backend,
-});
+  // The fs backend reads translations bundled at build time (via
+  // `npm run downloadLocales`). See README for the build-time sync pattern.
+  plugins: [Backend],
+})
