@@ -11,7 +11,8 @@ Companion blog posts:
 
 Stack: Remix v2.17 · `remix-i18next` 6.4 · i18next 23.16 · react-i18next
 15.7 · `i18next-locize-backend` 10 · `i18next-fs-backend` 2 ·
-`locize` 4.0.23 (with the SSR-iframe-detection fix) · React 18.
+`locize` 4.0.24 (with the SSR-iframe-detection fix from 4.0.23) ·
+React 18.
 
 > Looking for the React Router v7 framework-mode version of this
 > example? See
