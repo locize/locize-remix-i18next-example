@@ -19,6 +19,7 @@ const locizeOptions = {
   // you swap in your own project.
   apiKey: !isProduction ? '1c2bbc21-027d-4f41-995a-e8beb451cdef' : undefined,
   version: isProduction ? 'production' : 'latest',
+  cdnType: 'pro'
 }
 
 if (!isProduction) {

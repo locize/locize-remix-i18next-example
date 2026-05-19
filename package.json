@@ -12,8 +12,8 @@
     "build": "remix build",
     "dev": "remix dev --manual",
     "start": "remix-serve ./build/index.js",
-    "downloadLocales": "locize download --project-id=f6d74b76-9677-4a0d-b400-86e1507397ab --ver=latest --clean=true --path=./public/locales",
-    "syncLocales": "locize sync --project-id=f6d74b76-9677-4a0d-b400-86e1507397ab --ver=latest --api-key=1c2bbc21-027d-4f41-995a-e8beb451cdef --path=./public/locales --dry=true"
+    "downloadLocales": "locize download --project-id=f6d74b76-9677-4a0d-b400-86e1507397ab --ver=latest --cdn-type=pro --clean=true --path=./public/locales",
+    "syncLocales": "locize sync --project-id=f6d74b76-9677-4a0d-b400-86e1507397ab --ver=latest --cdn-type=pro --api-key=1c2bbc21-027d-4f41-995a-e8beb451cdef --path=./public/locales --dry=true"
   },
   "dependencies": {
     "@remix-run/node": "^2.17.4",
