@@ -4,17 +4,22 @@ A minimal Remix v2 sample showing how to wire
 [remix-i18next](https://github.com/sergiodxa/remix-i18next) with
 [Locize](https://www.locize.com/?from=locize-remix-i18next-example) for
 server-side language detection plus client-side translation loading.
-Companion blog post:
-[Remix with i18next](https://www.locize.com/blog/remix-i18next?from=locize-remix-i18next-example).
+Companion blog posts:
+[Part 1 — getting started](https://www.locize.com/blog/remix-i18n?from=locize-remix-i18next-example)
+·
+[Part 2 — continuous localization](https://www.locize.com/blog/remix-i18next?from=locize-remix-i18next-example).
 
 Stack: Remix v2.17 · `remix-i18next` 6.4 · i18next 23.16 · react-i18next
 15.7 · `i18next-locize-backend` 10 · `i18next-fs-backend` 2 ·
 `locize` 4.0.23 (with the SSR-iframe-detection fix) · React 18.
 
 > Looking for the React Router v7 framework-mode version of this
-> example? That's coming as a separate refresh — Remix has been
-> absorbed into React Router v7 and `remix-i18next` 7.x targets that
-> new shape.
+> example? See
+> [`locize-react-router-example`](https://github.com/locize/locize-react-router-example)
+> (blog walkthrough:
+> [React Router v7 + remix-i18next](https://www.locize.com/blog/react-router-i18next?from=locize-remix-i18next-example))
+> — Remix has been absorbed into React Router v7 and `remix-i18next`
+> 7.x targets that new shape.
 
 ## Getting started
 
@@ -98,7 +103,8 @@ for the full comparison.
 
 - [Locize platform docs](https://www.locize.com/docs?from=locize-remix-i18next-example)
 - [remix-i18next documentation](https://github.com/sergiodxa/remix-i18next)
-- React Router v7 alternative (Step A, separate refresh):
-  [`remix-i18next` 7.x targets RR v7 framework mode](https://github.com/sergiodxa/remix-i18next)
+- React Router v7 framework-mode alternative:
+  [`locize-react-router-example`](https://github.com/locize/locize-react-router-example)
+  ([blog walkthrough](https://www.locize.com/blog/react-router-i18next?from=locize-remix-i18next-example))
 - Next.js + Locize alternative:
   [next-i18next-locize](https://github.com/locize/next-i18next-locize)
